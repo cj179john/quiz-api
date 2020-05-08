@@ -18,6 +18,11 @@ module.exports = class ActivityService {
     return questions;
   }
 
+  async getQuestionsCount(activityId) {
+    const activity = await this.model.getOne(activityId);
+    return activity.questions.length;
+  }
+
   async getActivities() {
     const activities = await this.model.getAll();
     return activities.map(activity => ({

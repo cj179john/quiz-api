@@ -10,4 +10,5 @@ module.exports = class ActivityModel {
   async getOne(activityId) {
     return data.activities.find(activity => activity.id === activityId);
   }
+
 }

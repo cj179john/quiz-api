@@ -6,6 +6,7 @@ const cors = require('cors');
 const config = require('./config.js');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/errorHandlerMiddleware');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -17,11 +18,15 @@ app.myRouter = express.Router();
 // load config
 app.config = config;
 
+app.use(morgan('combined'));
+
 // convert request and respond bodies to json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api', routes);
+
+
 
 app.use(errorHandler);
 

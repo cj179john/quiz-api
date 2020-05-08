@@ -27,6 +27,16 @@ router.get('/:id/questions', async (req, res, next) => {
   }
 });
 
+router.get('/:id/questions/count', async (req, res, next) => {
+  const {id} = req.params;
+  try {
+    const count = await service.getQuestionsCount(parseInt(id));
+    return res.json({count});
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get('/:id/rounds', async (req, res, next) => {
   const {id} = req.params;
   try {

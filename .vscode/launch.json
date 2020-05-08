@@ -26,6 +26,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
+      "outputCapture": "std",
       "skipFiles": [
         "<node_internals>/**"
       ],

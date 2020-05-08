@@ -83,4 +83,15 @@ describe('Activities API test', () => {
     expect(status).to.equal(200);
     expect(body).to.have.lengthOf(2);
   });
+
+  it('should get question count of an activity', async () => {
+
+    // Act
+    const {status, body} = await request(app)
+      .get('/api/activities/1/questions/count');
+
+    // Assert
+    expect(status).to.equal(200);
+    expect(body).to.be.deep.equal({count: 5});
+  });
 });
