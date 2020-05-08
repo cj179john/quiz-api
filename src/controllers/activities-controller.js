@@ -1,37 +1,50 @@
-const { isEmpty } = require('lodash');
+'use strict';
+
 const { Router } = require('express');
+const ActivityService = require('../services/activity-service');
+const ActivityModel = require('../models/activity');
 
 const router = new Router();
-const data = require('../../data/questions.json');
+const service = new ActivityService(new ActivityModel());
 
-router.get('/', async (req, res) => {
-  const result = data.activities.map(activity => activity.activity_name);
-  return res.json(result);
+router.get('/', async (req, res, next) => {
+  try {
+    const result = await service.getActivities();
+    return res.json(result);
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get('/:id/questions', async (req, res) => {
+router.get('/:id/questions', async (req, res, next) => {
   const {id} = req.params;
   const {skip, take} = req.query;
-
-  const activity = data.activities
-    .find(activity => activity.order === parseInt(id));
-
-  if (!activity) {
-    throw new Error('Activity not found');
+  try {
+    const questions = await service.getQuestions(parseInt(id), skip, take);
+    return res.json(questions);
+  } catch (err) {
+    next(err);
   }
-
-  let questions = activity.questions;
-
-  if (skip) {
-    questions = questions.slice(skip);
-  }
-
-  if (take) {
-    questions = questions.slice(0, take);
-  }
-
-  return res.json(questions);
 });
-// router.get('/:id/rounds', activitiesHandler);
-// router.get('/:id/rounds/questions', activitiesHandler);
+
+router.get('/:id/rounds', async (req, res, next) => {
+  const {id} = req.params;
+  try {
+    const questions = await service.getRounds(parseInt(id));
+    return res.json(questions);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/:id/rounds/:roundId/questions', async (req, res, next) => {
+  const {id, roundId} = req.params;
+  try {
+    const questions = await service.getQuestionsOfRound(parseInt(id), parseInt(roundId));
+    return res.json(questions);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;

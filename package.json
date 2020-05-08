@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "test": "node node_modules/mocha/bin/_mocha test/*.spec.js",
+    "test": "node node_modules/mocha/bin/_mocha test/**/*.spec.js",
     "lint": "node node_modules/eslint/bin/eslint ."
   }
 }

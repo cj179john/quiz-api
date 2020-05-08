@@ -3,18 +3,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const events = require('events');
 const config = require('./config.js');
 const routes = require('./routes');
+const errorHandler = require('./middlewares/errorHandlerMiddleware');
 
 const app = express();
 
 // enable all cors call
 app.use(cors());
-
-// event emitter
-app.eventEmitter = new events.EventEmitter();
-require('./services/eventService.js')(app.eventEmitter);
 
 app.myRouter = express.Router();
 
@@ -27,10 +23,7 @@ app.use(bodyParser.json());
 
 app.use('/api', routes);
 
-// error catcher
-const notFoundDataMiddleware = require('./middlewares/notFoundDataMiddleware');
-
-app.use((req, res) => notFoundDataMiddleware(req, res, app.eventEmitter));
+app.use(errorHandler);
 
 process.on('uncaughtException', (err) => {
   console.error(err);
