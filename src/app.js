@@ -5,12 +5,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config.js');
 const routes = require('./routes');
-const errorHandler = require('./middlewares/errorHandlerMiddleware');
+const errorHandler = require('./middlewares/errorHandler-middleware');
 const morgan = require('morgan');
 
 const app = express();
 
-// enable all cors call
+// enable all cors call, we should filter specific URL when it is in production
 app.use(cors());
 
 app.myRouter = express.Router();
@@ -25,8 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/api', routes);
-
-
 
 app.use(errorHandler);
 

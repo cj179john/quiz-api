@@ -57,4 +57,14 @@ router.get('/:id/rounds/:roundId/questions', async (req, res, next) => {
   }
 });
 
+// @TODO: implement logic of updating a question object
+router.put('/:id/questions/:id', async (req, res, next) => {
+  return res.json('Not yet implemented');
+});
+
+// @TODO: implement logic of patching a question object
+router.patch('/:id/questions/:id', async (req, res, next) => {
+  return res.json('Not yet implemented');
+});
+
 module.exports = router;

@@ -36,16 +36,9 @@ module.exports = class ActivityService {
     return activity.rounds;
   }
 
+  // @TODO: support pagination
   async getQuestionsOfRound(activityId, roundId) {
     const activity = await this.model.getOne(activityId);
     return activity.questions.filter(question => question.roundId === roundId);
-  }
-
-  async updateQuestion(newQuestion, questionId) {
-    return;
-  }
-
-  async patchQuestion(patch, questionId) {
-    return;
   }
 }
