@@ -48,6 +48,11 @@ describe('Activities API test', () => {
         id: 2,
         title: 'Round 2',
         order: 2,
+      },
+      {
+        id: 3,
+        title: 'Round 3',
+        order: 3,
       }
     ];
 
@@ -61,20 +66,6 @@ describe('Activities API test', () => {
   });
 
   it('should get all question of a round of an activity', async () => {
-    // Arrange
-    const expected = [
-      {
-        id: 1,
-        title: 'Round 1',
-        order: 1,
-      },
-      {
-        id: 2,
-        title: 'Round 2',
-        order: 2,
-      }
-    ];
-
     // Act
     const {status, body} = await request(app)
       .get('/api/activities/2/rounds/1/questions');
